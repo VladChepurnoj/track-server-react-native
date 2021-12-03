@@ -1,5 +1,19 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const authRoutes = require("./routes/authRoutes");
+const mongoUri =
+  "mongodb+srv://vlad123:vlad123@cluster0.k5s12.mongodb.net/track-server-native?retryWrites=true&w=majority";
+
 const app = express();
+app.use(authRoutes);
+
+mongoose.connect(mongoUri);
+mongoose.connection.on("connected", () => {
+  console.log("Connected to mongo instance");
+});
+mongoose.connection.on("error", (err) => {
+  console.error("Error connectiong to mongo", err);
+});
 
 app.get("/", (req, res) => {
   res.send("Hi");
