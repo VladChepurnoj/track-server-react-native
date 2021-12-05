@@ -1,10 +1,13 @@
+require("./models/User");
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
 const mongoUri =
   "mongodb+srv://vlad123:vlad123@cluster0.k5s12.mongodb.net/track-server-native?retryWrites=true&w=majority";
 
 const app = express();
+app.use(bodyParser.json());
 app.use(authRoutes);
 
 mongoose.connect(mongoUri);
